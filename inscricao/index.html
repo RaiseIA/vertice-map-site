@@ -177,13 +177,8 @@
 <script>
 document.getElementById('signup-form').addEventListener('submit', function(e){
   e.preventDefault();
-  var nome = document.getElementById('nome').value.trim();
-  var area = document.getElementById('area').value;
-  var whats = document.getElementById('whats').value.trim();
-  // TODO: trocar pelo número real (DDI+DDD+número, só dígitos) ou por um link de grupo do WhatsApp.
-  var numeroDestino = "5500000000000";
-  var texto = encodeURIComponent("Olá! Me chamo " + nome + " (" + area + ", WhatsApp " + whats + ") e quero garantir minha vaga no Ponto de Virada, aula gratuita de terça às 19h30.");
-  window.location.href = "https://wa.me/" + numeroDestino + "?text=" + texto;
+  // Ao enviar, o inscrito é direcionado para o grupo da aula Ponto de Virada no WhatsApp.
+  window.location.href = "https://chat.whatsapp.com/JuYiLL18aiwCagO5YtSVtI";
 });
 </script>
 
