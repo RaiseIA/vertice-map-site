@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sessão Estratégica | Vértice MAP</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-dark:#10192B; --bg-dark-2:#17223A; --teal:#1EA9A1; --teal-bright:#2FD9C9;
+    --white:#F7F9FB; --ink:#0B0F1A; --gray-mid:#8A93A3;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter','Segoe UI',Arial,sans-serif;background:var(--bg-dark);color:#D7DEE8;line-height:1.55;}
+  h1,h2,h3{font-family:'Poppins','Inter',sans-serif;font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin:0 0 .5em 0;color:var(--white);}
+  p{margin:0 0 1em 0;}
+  a{color:inherit;}
+  .dot-grid{position:relative;overflow:hidden;}
+  .dot-grid::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px);background-size:26px 26px;pointer-events:none;z-index:0;}
+  .wrap{max-width:1120px;margin:0 auto;padding:56px 28px;position:relative;z-index:1;}
+  .kicker{display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.14em;font-size:11.5px;font-weight:700;color:var(--teal-bright);border:1px solid rgba(47,217,201,.4);padding:7px 16px;border-radius:999px;margin-bottom:20px;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start;}
+  .hero-copy h1{font-size:36px;max-width:560px;}
+  .hero-copy .sub{font-size:16.5px;color:#B7C0CE;max-width:520px;}
+  .info-row{display:flex;gap:16px;margin-top:28px;flex-wrap:wrap;}
+  .info-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:16px 20px;flex:1;min-width:170px;}
+  .info-card .lbl{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--teal-bright);font-weight:700;margin-bottom:4px;}
+  .info-card .val{font-size:15.5px;font-weight:600;color:var(--white);}
+  .take{margin-top:32px;padding:22px 24px;background:rgba(47,217,201,.06);border:1px solid rgba(47,217,201,.2);border-radius:16px;}
+  .take h3{font-size:15px;color:var(--teal-bright);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;}
+  .take ul{margin:0;padding-left:18px;} .take li{margin-bottom:8px;font-size:15px;color:#CDD6E2;}
+  .speaker{display:flex;gap:18px;align-items:center;margin-top:36px;padding-top:32px;border-top:1px solid rgba(255,255,255,.1);}
+  .speaker img{width:72px;height:72px;border-radius:50%;object-fit:cover;flex:0 0 auto;border:2px solid rgba(47,217,201,.4);}
+  .speaker .name{font-weight:700;color:var(--white);font-size:16px;}
+  .speaker .role{font-size:13px;color:var(--gray-mid);margin-bottom:8px;}
+  .chip-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .chip{font-size:11.5px;font-weight:700;color:var(--teal-bright);background:rgba(47,217,201,.08);border:1px solid rgba(47,217,201,.25);padding:4px 10px;border-radius:999px;}
+  .cta-card{background:var(--white);color:var(--ink);border-radius:24px;padding:40px 36px;box-shadow:0 40px 80px rgba(0,0,0,.35);position:sticky;top:32px;text-align:center;}
+  .cta-card h2{color:var(--ink);font-size:24px;}
+  .cta-card .sub{color:#5B5548;font-size:14.5px;margin-bottom:26px;}
+  .cta-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--teal);color:var(--white);text-decoration:none;padding:17px 20px;border-radius:12px;font-size:16.5px;font-weight:700;}
+  .cta-btn:hover{background:var(--teal-bright);}
+  .cta-note{font-size:12px;color:#8A8266;margin-top:16px;}
+  .cta-steps{text-align:left;margin:0 0 26px 0;padding:0;list-style:none;}
+  .cta-steps li{font-size:14px;color:#3A3F4A;margin-bottom:12px;padding-left:28px;position:relative;}
+  .cta-steps li::before{content:"✓";position:absolute;left:0;top:0;width:18px;height:18px;color:var(--teal);font-weight:800;}
+  footer{text-align:center;padding:32px 0;color:#5C6577;font-size:13px;}
+  footer b{color:var(--white);}
+  @media (max-width:860px){.hero-grid{grid-template-columns:1fr;}.cta-card{position:static;}.hero-copy h1{font-size:28px;}}
+</style>
+</head>
+<body>
+
+<section class="dot-grid">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="kicker">Sessão Estratégica · 1 a 1 com Thiago Fonseca</span>
+        <h1>Trinta minutos, uma conversa, e a direção da sua carreira mais clara do que estava.</h1>
+        <p class="sub">A Sessão Estratégica é um diagnóstico direto do seu momento profissional. A gente olha onde você está hoje, onde quer chegar, e qual é o caminho mais curto entre os dois. Você sai com clareza real do próximo passo, com ou sem a Vértice MAP. Não é uma call de venda disfarçada.</p>
+
+        <div class="info-row">
+          <div class="info-card"><div class="lbl">Duração</div><div class="val">Cerca de 30 minutos</div></div>
+          <div class="info-card"><div class="lbl">Formato</div><div class="val">Online, individual</div></div>
+          <div class="info-card"><div class="lbl">Para quem</div><div class="val">Comunicação e marketing, 3+ anos</div></div>
+        </div>
+
+        <div class="take">
+          <h3>O que você leva dessa conversa</h3>
+          <ul>
+            <li>Um diagnóstico honesto de onde a sua carreira está travando</li>
+            <li>Clareza do próximo passo prático, mesmo que não seja a mentoria</li>
+            <li>Uma leitura de como a IA muda o jogo no seu tipo de trabalho</li>
+          </ul>
+        </div>
+
+        <div class="speaker">
+          <img src="/foto-extra.jpeg" alt="Thiago Fonseca">
+          <div>
+            <div class="name">Thiago Fonseca</div>
+            <div class="role">Executivo de Growth & Revenue · Fundador do Grupo RAISE</div>
+            <div class="chip-row">
+              <span class="chip">19 anos de experiência</span>
+              <span class="chip">400% de crescimento de base</span>
+              <span class="chip">8,3x de faturamento em 6 meses</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-card">
+        <h2>Escolha seu horário</h2>
+        <p class="sub">Selecione o melhor dia e horário na agenda. Rápido e sem compromisso.</p>
+        <ul class="cta-steps">
+          <li>Você escolhe um horário livre na agenda</li>
+          <li>Recebe a confirmação e o link por e-mail</li>
+          <li>Conversamos ao vivo, 1 a 1, no dia marcado</li>
+        </ul>
+        <a class="cta-btn" href="https://calendar.app.google/M3rmrihtovAFSqUJ8" target="_blank" rel="noopener">Escolher meu horário →</a>
+        <p class="cta-note">🔒 Vagas limitadas por semana. Agende enquanto houver horário disponível.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <b>Vértice MAP.</b> Mentoria de aceleração profissional. Uma iniciativa do Grupo RAISE. · verticemap.com.br
+</footer>
+
+</body>
+</html>
