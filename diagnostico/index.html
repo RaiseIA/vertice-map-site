@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Diagnóstico de Carreira · Vértice MAP</title>
+<meta name="description" content="Descubra em 3 minutos qual é o caminho mais rápido para construir uma carreira de alto valor usando Inteligência Artificial.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#1D304E; --navy-2:#142238; --teal:#1EA9A1; --teal-light:#E4F5F3;
+    --bg:#F6F8F9; --card:#FFFFFF; --line:#E2E8ED; --ink:#1D304E; --ink-soft:#4C5C72; --warn:#C97A2B;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:'Inter',Arial,sans-serif;background:var(--bg);color:var(--ink);}
+  h1,h2,h3,h4{font-family:'Poppins',Arial,sans-serif;color:var(--navy);margin:0;}
+
+  .app{max-width:520px;margin:0 auto;padding:32px 20px 60px;min-height:100vh;display:flex;flex-direction:column;}
+
+  .brand{display:flex;align-items:center;gap:10px;margin-bottom:26px;}
+  .brand svg{width:28px;height:28px;}
+  .brand span{font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;color:var(--navy);text-transform:uppercase;}
+
+  .progress{display:flex;gap:6px;margin-bottom:26px;}
+  .progress .seg{flex:1;height:4px;border-radius:4px;background:var(--line);}
+  .progress .seg.done{background:var(--teal);}
+
+  .screen{display:none;flex:1;flex-direction:column;animation:fade .35s ease;}
+  .screen.active{display:flex;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  .kicker{display:inline-block;background:var(--teal-light);color:#0E7A73;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;border-radius:20px;margin-bottom:14px;width:fit-content;}
+  h2.q{font-size:22px;line-height:1.3;margin-bottom:8px;}
+  p.hint{color:var(--ink-soft);font-size:14px;margin:0 0 22px;}
+
+  .card-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px;}
+  .opt-card{
+    border:1.5px solid var(--line);background:var(--card);border-radius:12px;padding:16px 12px;
+    text-align:left;cursor:pointer;font-family:'Inter',Arial,sans-serif;font-size:14px;font-weight:600;color:var(--navy);
+    transition:all .15s ease;
+  }
+  .opt-card:hover{border-color:var(--teal);}
+  .opt-card.selected{border-color:var(--teal);background:var(--teal-light);color:#0E5C56;}
+
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:13px;font-weight:600;color:var(--ink-soft);margin-bottom:6px;}
+  .field input[type=text],.field input[type=email],.field input[type=tel]{
+    width:100%;padding:13px 14px;border:1.5px solid var(--line);border-radius:10px;font-size:15px;font-family:'Inter',Arial,sans-serif;color:var(--ink);background:#fff;
+  }
+  .field input:focus{outline:none;border-color:var(--teal);}
+
+  .slider-value{
+    font-family:'Poppins',Arial,sans-serif;font-size:32px;font-weight:700;color:var(--teal);text-align:center;margin:18px 0 6px;
+  }
+  input[type=range]{width:100%;height:6px;border-radius:6px;background:var(--line);accent-color:var(--teal);margin-bottom:6px;}
+  .range-labels{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin-bottom:26px;}
+
+  .check-row{
+    display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;background:#fff;
+  }
+  .check-row.selected{border-color:var(--teal);background:var(--teal-light);}
+  .check-row .box{width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line);flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .check-row.selected .box{background:var(--teal);border-color:var(--teal);}
+  .check-row .box svg{width:12px;height:12px;display:none;}
+  .check-row.selected .box svg{display:block;}
+  .check-row span{font-size:14px;font-weight:500;color:var(--ink);}
+
+  .radio-row{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+  .radio-row .opt-card{width:100%;}
+
+  .spacer{flex:1;}
+  .btn{
+    display:block;width:100%;text-align:center;padding:15px;border-radius:12px;border:none;
+    font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;
+  }
+  .btn-primary{background:var(--teal);color:#fff;}
+  .btn-primary:disabled{background:#B9CBD8;cursor:not-allowed;}
+  .btn-ghost{background:transparent;color:var(--ink-soft);font-size:13px;font-weight:600;text-align:center;margin-top:12px;border:none;cursor:pointer;font-family:'Inter',Arial,sans-serif;}
+
+  /* LANDING */
+  .landing{text-align:left;}
+  .landing h1{font-size:28px;line-height:1.32;margin-bottom:14px;}
+  .landing p.sub{color:var(--ink-soft);font-size:15.5px;margin-bottom:26px;}
+  .landing .pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:30px;}
+  .landing .pill{font-size:12px;background:var(--teal-light);color:#0E7A73;padding:5px 11px;border-radius:16px;font-weight:600;}
+
+  /* RESULT */
+  .result-box{background:var(--navy);color:#fff;border-radius:16px;padding:26px;margin-bottom:18px;}
+  .result-box .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .result-box .row:last-child{margin-bottom:0;}
+  .result-box .lbl{font-size:12px;color:#8FA3BC;text-transform:uppercase;letter-spacing:0.5px;}
+  .result-box .val{font-family:'Poppins',Arial,sans-serif;font-weight:700;font-size:15.5px;text-align:right;}
+  .result-box .val.big{color:#8CE4DD;font-size:18px;}
+  .result-box hr{border:none;border-top:1px solid rgba(255,255,255,0.15);margin:14px 0;}
+
+  .level-track{display:flex;align-items:center;gap:4px;margin-bottom:18px;}
+  .level-track .lv{flex:1;height:8px;border-radius:6px;background:var(--line);position:relative;}
+  .level-track .lv.filled{background:var(--teal);}
+  .level-track .lv.target{background:#B7E8E3;}
+
+  .gap-card{background:#fff;border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:10px;padding:14px 16px;margin-bottom:18px;}
+  .gap-card .lbl{font-size:11.5px;color:var(--warn);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px;}
+  .gap-card p{margin:0;font-size:14px;color:var(--ink-soft);}
+
+  .track-caption{font-size:12px;color:var(--ink-soft);margin:0 0 8px;text-align:center;}
+
+  .plano-card{background:#fff;border:1px solid var(--line);border-left:4px solid var(--teal);border-radius:10px;padding:14px 16px;margin-bottom:18px;}
+  .plano-card .lbl{font-size:11.5px;color:var(--teal);font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+  .plano-card ul{margin:0;padding-left:0;list-style:none;}
+  .plano-card ul li{font-size:13.5px;color:var(--ink-soft);padding-left:18px;position:relative;margin-bottom:8px;}
+  .plano-card ul li:last-child{margin-bottom:0;}
+  .plano-card ul li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--teal);}
+
+  .tag-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:16px;}
+  .tag{font-size:12px;background:var(--teal-light);color:#0E7A73;padding:5px 11px;border-radius:16px;font-weight:600;}
+
+  .prazo-card{background:var(--teal-light);border-radius:10px;padding:14px 16px;font-size:14px;color:#0E5C56;margin-bottom:24px;}
+  .prazo-card b{color:#0E7A73;}
+
+  /* INVITE */
+  .invite-hero{text-align:center;padding:8px 0 20px;}
+  .invite-hero .badge{width:56px;height:56px;border-radius:50%;background:var(--teal-light);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;}
+  .invite-hero h2{font-size:22px;margin-bottom:10px;}
+  .invite-hero p{color:var(--ink-soft);font-size:14.5px;line-height:1.6;}
+
+  .soft-note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-size:14px;color:var(--ink-soft);margin-top:16px;}
+
+  footer.legend{margin-top:auto;padding-top:24px;text-align:center;font-size:11.5px;color:#9DACBC;}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="brand">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAAwCAYAAAC47FD8AAAABGdBTUEAALGOfPtRkwAAACBjSFJNAACHDwAAjA8AAP1SAACBQAAAfXkAAOmLAAA85QAAGcxzPIV3AAAKL2lDQ1BJQ0MgUHJvZmlsZQAASMedlndUVNcWh8+9d3qhzTDSGXqTLjCA9C4gHQRRGGYGGMoAwwxNbIioQEQREQFFkKCAAaOhSKyIYiEoqGAPSBBQYjCKqKhkRtZKfHl57+Xl98e939pn73P32XuftS4AJE8fLi8FlgIgmSfgB3o401eFR9Cx/QAGeIABpgAwWempvkHuwUAkLzcXerrICfyL3gwBSPy+ZejpT6eD/0/SrFS+AADIX8TmbE46S8T5Ik7KFKSK7TMipsYkihlGiZkvSlDEcmKOW+Sln30W2VHM7GQeW8TinFPZyWwx94h4e4aQI2LER8QFGVxOpohvi1gzSZjMFfFbcWwyh5kOAIoktgs4rHgRm4iYxA8OdBHxcgBwpLgvOOYLFnCyBOJDuaSkZvO5cfECui5Lj25qbc2ge3IykzgCgaE/k5XI5LPpLinJqUxeNgCLZ/4sGXFt6aIiW5paW1oamhmZflGo/7r4NyXu7SK9CvjcM4jW94ftr/xS6gBgzIpqs+sPW8x+ADq2AiB3/w+b5iEAJEV9a7/xxXlo4nmJFwhSbYyNMzMzjbgclpG4oL/rfzr8DX3xPSPxdr+Xh+7KiWUKkwR0cd1YKUkpQj49PZXJ4tAN/zzE/zjwr/NYGsiJ5fA5PFFEqGjKuLw4Ubt5bK6Am8Kjc3n/qYn/MOxPWpxrkSj1nwA1yghI3aAC5Oc+gKIQARJ5UNz13/vmgw8F4psXpjqxOPefBf37rnCJ+JHOjfsc5xIYTGcJ+RmLa+JrCdCAACQBFcgDFaABdIEhMANWwBY4AjewAviBYBAO1gIWiAfJgA8yQS7YDApAEdgF9oJKUAPqQSNoASdABzgNLoDL4Dq4Ce6AB2AEjIPnYAa8AfMQBGEhMkSB5CFVSAsygMwgBmQPuUE+UCAUDkVDcRAPEkK50BaoCCqFKqFaqBH6FjoFXYCuQgPQPWgUmoJ+hd7DCEyCqbAyrA0bwwzYCfaGg+E1cBycBufA+fBOuAKug4/B7fAF+Dp8Bx6Bn8OzCECICA1RQwwRBuKC+CERSCzCRzYghUg5Uoe0IF1IL3ILGUGmkXcoDIqCoqMMUbYoT1QIioVKQ21AFaMqUUdR7age1C3UKGoG9QlNRiuhDdA2aC/0KnQcOhNdgC5HN6Db0JfQd9Dj6DcYDIaG0cFYYTwx4ZgEzDpMMeYAphVzHjOAGcPMYrFYeawB1g7rh2ViBdgC7H7sMew57CB2HPsWR8Sp4sxw7rgIHA+XhyvHNeHO4gZxE7h5vBReC2+D98Oz8dn4Enw9vgt/Az+OnydIE3QIdoRgQgJhM6GC0EK4RHhIeEUkEtWJ1sQAIpe4iVhBPE68QhwlviPJkPRJLqRIkpC0k3SEdJ50j/SKTCZrkx3JEWQBeSe5kXyR/Jj8VoIiYSThJcGW2ChRJdEuMSjxQhIvqSXpJLlWMkeyXPKk5A3JaSm8lLaUixRTaoNUldQpqWGpWWmKtKm0n3SydLF0k/RV6UkZrIy2jJsMWyZf5rDMRZkxCkLRoLhQWJQtlHrKJco4FUPVoXpRE6hF1G+o/dQZWRnZZbKhslmyVbJnZEdoCE2b5kVLopXQTtCGaO+XKC9xWsJZsmNJy5LBJXNyinKOchy5QrlWuTty7+Xp8m7yifK75TvkHymgFPQVAhQyFQ4qXFKYVqQq2iqyFAsVTyjeV4KV9JUCldYpHVbqU5pVVlH2UE5V3q98UXlahabiqJKgUqZyVmVKlaJqr8pVLVM9p/qMLkt3oifRK+g99Bk1JTVPNaFarVq/2ry6jnqIep56q/ojDYIGQyNWo0yjW2NGU1XTVzNXs1nzvhZei6EVr7VPq1drTltHO0x7m3aH9qSOnI6XTo5Os85DXbKug26abp3ubT2MHkMvUe+A3k19WN9CP16/Sv+GAWxgacA1OGAwsBS91Hopb2nd0mFDkqGTYYZhs+GoEc3IxyjPqMPohbGmcYTxbuNe408mFiZJJvUmD0xlTFeY5pl2mf5qpm/GMqsyu21ONnc332jeaf5ymcEyzrKDy+5aUCx8LbZZdFt8tLSy5Fu2WE5ZaVpFW1VbDTOoDH9GMeOKNdra2Xqj9WnrdzaWNgKbEza/2BraJto22U4u11nOWV6/fMxO3Y5pV2s3Yk+3j7Y/ZD/ioObAdKhzeOKo4ch2bHCccNJzSnA65vTC2cSZ79zmPOdi47Le5bwr4urhWuja7ybjFuJW6fbYXd09zr3ZfcbDwmOdx3lPtKe3527PYS9lL5ZXo9fMCqsV61f0eJO8g7wrvZ/46Pvwfbp8Yd8Vvnt8H67UWslb2eEH/Lz89vg98tfxT/P/PgAT4B9QFfA00DQwN7A3iBIUFdQU9CbYObgk+EGIbogwpDtUMjQytDF0Lsw1rDRsZJXxqvWrrocrhHPDOyOwEaERDRGzq91W7109HmkRWRA5tEZnTdaaq2sV1iatPRMlGcWMOhmNjg6Lbor+wPRj1jFnY7xiqmNmWC6sfaznbEd2GXuKY8cp5UzE2sWWxk7G2cXtiZuKd4gvj5/munAruS8TPBNqEuYS/RKPJC4khSW1JuOSo5NP8WR4ibyeFJWUrJSBVIPUgtSRNJu0vWkzfG9+QzqUvia9U0AV/Uz1CXWFW4WjGfYZVRlvM0MzT2ZJZ/Gy+rL1s3dkT+S453y9DrWOta47Vy13c+7oeqf1tRugDTEbujdqbMzfOL7JY9PRzYTNiZt/yDPJK817vSVsS1e+cv6m/LGtHlubCyQK+AXD22y31WxHbedu799hvmP/jk+F7MJrRSZF5UUfilnF174y/ariq4WdsTv7SyxLDu7C7OLtGtrtsPtoqXRpTunYHt897WX0ssKy13uj9l4tX1Zes4+wT7hvpMKnonO/5v5d+z9UxlfeqXKuaq1Wqt5RPXeAfWDwoOPBlhrlmqKa94e4h+7WetS212nXlR/GHM44/LQ+tL73a8bXjQ0KDUUNH4/wjowcDTza02jV2Nik1FTSDDcLm6eORR67+Y3rN50thi21rbTWouPguPD4s2+jvx064X2i+yTjZMt3Wt9Vt1HaCtuh9uz2mY74jpHO8M6BUytOdXfZdrV9b/T9kdNqp6vOyJ4pOUs4m3924VzOudnzqeenL8RdGOuO6n5wcdXF2z0BPf2XvC9duex++WKvU++5K3ZXTl+1uXrqGuNax3XL6+19Fn1tP1j80NZv2d9+w+pG503rm10DywfODjoMXrjleuvyba/b1++svDMwFDJ0dzhyeOQu++7kvaR7L+9n3J9/sOkh+mHhI6lH5Y+VHtf9qPdj64jlyJlR19G+J0FPHoyxxp7/lP7Th/H8p+Sn5ROqE42TZpOnp9ynbj5b/Wz8eerz+emCn6V/rn6h++K7Xxx/6ZtZNTP+kv9y4dfiV/Kvjrxe9rp71n/28ZvkN/NzhW/l3x59x3jX+z7s/cR85gfsh4qPeh+7Pnl/eriQvLDwG/eE8/s3BCkeAAAACXBIWXMAAAsSAAALEgHS3X78AAADZGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSfvu78nIGlkPSdXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQnPz4NCjx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iPjxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+PHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9InV1aWQ6ZmFmNWJkZDUtYmEzZC0xMWRhLWFkMzEtZDMzZDc1MTgyZjFiIiB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iPjxkYzpjcmVhdG9yPjxyZGY6U2VxIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+PHJkZjpsaT5VU0VSPC9yZGY6bGk+PC9yZGY6U2VxPg0KCQkJPC9kYzpjcmVhdG9yPjwvcmRmOkRlc2NyaXB0aW9uPjxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSJ1dWlkOmZhZjViZGQ1LWJhM2QtMTFkYS1hZDMxLWQzM2Q3NTE4MmYxYiIgeG1sbnM6ZXhpZj0iaHR0cDovL25zLmFkb2JlLmNvbS9leGlmLzEuMC8iPjxleGlmOkRhdGVUaW1lT3JpZ2luYWw+MjAyNi0wNy0yMVQxNDoxOTo1NC4wNTI8L2V4aWY6RGF0ZVRpbWVPcmlnaW5hbD48L3JkZjpEZXNjcmlwdGlvbj48cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0idXVpZDpmYWY1YmRkNS1iYTNkLTExZGEtYWQzMS1kMzNkNzUxODJmMWIiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyI+PHhtcDpDcmVhdGVEYXRlPjIwMjYtMDctMjFUMTQ6MTk6NTQuMDUyPC94bXA6Q3JlYXRlRGF0ZT48L3JkZjpEZXNjcmlwdGlvbj48L3JkZjpSREY+PC94OnhtcG1ldGE+DQo8P3hwYWNrZXQg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" alt="Vértice MAP" style="height:32px;width:auto;">
+  </div>
+
+  <div class="progress" id="progressBar" style="display:none;">
+    <div class="seg" data-i="1"></div>
+    <div class="seg" data-i="2"></div>
+    <div class="seg" data-i="3"></div>
+    <div class="seg" data-i="4"></div>
+    <div class="seg" data-i="5"></div>
+    <div class="seg" data-i="6"></div>
+  </div>
+
+  <div class="progress" id="qualifProgress" style="display:none;">
+    <div class="seg" data-qi="1"></div>
+    <div class="seg" data-qi="2"></div>
+    <div class="seg" data-qi="3"></div>
+  </div>
+
+  <!-- LANDING -->
+  <div class="screen active landing" id="s-landing">
+    <div class="kicker">Para profissionais de Comunicação e Marketing</div>
+    <h1>Descubra qual é o caminho mais rápido para construir uma carreira de alto valor usando Inteligência Artificial.</h1>
+    <p class="sub">Receba gratuitamente um diagnóstico personalizado e descubra qual modelo de atuação tem mais potencial para o seu perfil.</p>
+    <div class="pills">
+      <span class="pill">Leva 3 minutos</span>
+      <span class="pill">100% gratuito</span>
+      <span class="pill">Resultado imediato</span>
+    </div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="goTo('s-cadastro')">Começar Diagnóstico</button>
+  </div>
+
+  <!-- CADASTRO -->
+  <div class="screen" id="s-cadastro">
+    <div class="kicker">Antes de começar</div>
+    <h2 class="q">Para onde enviamos o seu resultado?</h2>
+    <p class="hint">Usamos só para te mostrar o diagnóstico e, se fizer sentido, convidar você para uma conversa.</p>
+    <div class="field"><label>Nome</label><input type="text" id="f-nome" placeholder="Seu nome"></div>
+    <div class="field"><label>Email</label><input type="email" id="f-email" placeholder="seu@email.com"></div>
+    <div class="field"><label>WhatsApp</label><input type="tel" id="f-whats" placeholder="(31) 90000-0000"></div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="iniciarDiagnostico()">Continuar</button>
+  </div>
+
+  <!-- ETAPA 1: CARGO -->
+  <div class="screen" id="s-step1">
+    <div class="kicker">Etapa 1 de 5</div>
+    <h2 class="q">Quem é você hoje?</h2>
+    <p class="hint">Escolha a opção que mais se aproxima da sua atuação atual.</p>
+    <div class="card-grid" id="cargoGrid"></div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" id="btnStep1" disabled onclick="goTo('s-step2')">Continuar</button>
+  </div>
+
+  <!-- ETAPA 2: RENDA ATUAL -->
+  <div class="screen" id="s-step2">
+    <div class="kicker">Etapa 2 de 5</div>
+    <h2 class="q">Quanto você ganha hoje?</h2>
+    <p class="hint">Some tudo que você recebe hoje da sua atuação principal, por mês.</p>
+    <div class="slider-value" id="rendaAtualValue">R$ 6.000</div>
+    <input type="range" min="0" max="20000" step="500" value="6000" id="rendaAtualSlider" oninput="updateRendaAtual(this.value)">
+    <div class="range-labels"><span>R$ 0</span><span>R$ 20 mil</span></div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="goTo('s-step3')">Continuar</button>
+  </div>
+
+  <!-- ETAPA 3: RENDA DESEJADA -->
+  <div class="screen" id="s-step3">
+    <div class="kicker">Etapa 3 de 5</div>
+    <h2 class="q">Quanto você quer ganhar?</h2>
+    <p class="hint">Pense num valor mensal que mudaria de verdade o seu padrão de vida.</p>
+    <div class="slider-value" id="rendaDesejadaValue">R$ 15.000</div>
+    <input type="range" min="5000" max="30000" step="500" value="15000" id="rendaDesejadaSlider" oninput="updateRendaDesejada(this.value)">
+    <div class="range-labels"><span>R$ 5 mil</span><span>R$ 30 mil</span></div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="goTo('s-step4')">Continuar</button>
+  </div>
+
+  <!-- ETAPA 4: DESAFIO -->
+  <div class="screen" id="s-step4">
+    <div class="kicker">Etapa 4 de 6</div>
+    <h2 class="q">Há quanto tempo você está na mesma função?</h2>
+    <p class="hint">Isso ajuda a entender se o seu momento pede um ajuste rápido ou uma virada mais de fundo.</p>
+    <div class="radio-row" id="tempoFuncaoList"></div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" id="btnStepTempo" disabled onclick="goTo('s-step5')">Continuar</button>
+  </div>
+
+  <div class="screen" id="s-step5">
+    <div class="kicker">Etapa 5 de 6</div>
+    <h2 class="q">Qual é o seu maior desafio hoje?</h2>
+    <p class="hint">Escolha até 2 opções, a primeira que você marcar é a que mais pesa no seu resultado.</p>
+    <div id="desafioList"></div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" id="btnStep4" disabled onclick="goTo('s-step6')">Continuar</button>
+  </div>
+
+  <!-- ETAPA 6: MATURIDADE EM IA -->
+  <div class="screen" id="s-step6">
+    <div class="kicker">Etapa 6 de 6</div>
+    <h2 class="q">Como você usa Inteligência Artificial no seu trabalho hoje?</h2>
+    <p class="hint">Seja honesto, isso não diz se você é bom no que faz, só mostra de onde você está partindo.</p>
+    <div class="radio-row" id="iaList"></div>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" id="btnStep5" disabled onclick="calcularDiagnostico()">Ver meu diagnóstico</button>
+  </div>
+
+  <!-- RESULTADO -->
+  <div class="screen" id="s-resultado">
+    <div class="kicker">Seu diagnóstico</div>
+    <h2 class="q" id="resultadoTitulo">Aqui está o seu retrato de carreira</h2>
+    <p class="hint" id="resultadoSub"></p>
+
+    <div class="result-box">
+      <div class="row"><span class="lbl">Perfil atual</span><span class="val" id="rPerfilAtual">-</span></div>
+      <div class="row"><span class="lbl">Potencial</span><span class="val big" id="rPerfilPotencial">-</span></div>
+      <hr>
+      <div class="row"><span class="lbl">Posição na escala (1 a 6)</span><span class="val" id="rNivelAtual">-</span></div>
+      <div class="row"><span class="lbl">Meta na escala (1 a 6)</span><span class="val" id="rNivelDesejado">-</span></div>
+      <div class="row"><span class="lbl">Meta de renda</span><span class="val" id="rMeta">-</span></div>
+      <hr>
+      <div class="row"><span class="lbl">Maturidade em IA</span><span class="val" id="rMaturidadeIA">-</span></div>
+    </div>
+
+    <p class="track-caption">Escala de Evolução Profissional Vértice, do Operacional (1) ao Conselheiro (6)</p>
+    <div class="level-track" id="levelTrack"></div>
+
+    <p class="track-caption">Maturidade em IA aplicada, do Iniciante (1) ao Multiplicador (5)</p>
+    <div class="level-track" id="iaTrack"></div>
+
+    <div class="gap-card">
+      <div class="lbl">Principal gap identificado</div>
+      <p id="rGap">-</p>
+    </div>
+
+    <div class="plano-card">
+      <div class="lbl">O que fazer para acelerar isso</div>
+      <ul id="rPlano"></ul>
+    </div>
+
+    <div class="prazo-card">Com foco nesse gap, o primeiro resultado prático costuma aparecer em <b>90 dias</b>. O salto completo de nível, em <b>12 meses</b>.</div>
+
+    <button class="btn btn-primary" onclick="goTo('s-transicao')">Continuar</button>
+  </div>
+
+  <!-- TRANSICAO PARA VERIFICACAO DE VAGA -->
+  <div class="screen" id="s-transicao">
+    <div class="kicker">Diagnóstico concluído</div>
+    <h2 class="q">Você já viu o caminho. Falta decidir se vai andar por ele.</h2>
+    <p class="hint">Ver o problema no papel não muda nada sozinho. As próximas respostas mostram se faz sentido dar um próximo passo, pra transformar esse diagnóstico num plano real, com direção, não mais uma tentativa solta. São poucas vagas, e são pra quem está pronto pra sair do lugar agora.</p>
+    <div class="spacer"></div>
+    <button class="btn btn-primary" onclick="goTo('s-qualif1')">Sim, quero sair do lugar</button>
+  </div>
+
+  <!-- QUALIFICACAO 1: PRAZO -->
+  <div class="screen" id="s-qualif1">
+    <div class="kicker">Verificação de vaga · 1 de 3</div>
+    <h2 class="q">Quando você pretende fazer essa transição?</h2>
+    <div class="radio-row" id="prazoList"></div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- QUALIFICACAO TENTATIVA DE MUDANCA -->
+  <div class="screen" id="s-qualif-tentativa">
+    <div class="kicker">Verificação de vaga · 2 de 3</div>
+    <h2 class="q">Nos últimos 12 meses, você tentou uma recolocação ou promoção?</h2>
+    <div class="radio-row" id="tentativaList"></div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- QUALIFICACAO DISPOSICAO -->
+  <div class="screen" id="s-qualif2">
+    <div class="kicker">Verificação de vaga · 3 de 3</div>
+    <h2 class="q">Você estaria disposto a investir em uma mentoria para acelerar isso?</h2>
+    <div class="radio-row" id="disposicaoList"></div>
+    <div class="spacer"></div>
+  </div>
+
+  <!-- CONVITE (QUALIFICADO) -->
+  <div class="screen" id="s-convite-forte">
+    <div class="invite-hero">
+      <div class="badge">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12l4 4L19 6" stroke="#1EA9A1" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2 id="conviteTitulo">Parabéns, seu diagnóstico indica alto potencial.</h2>
+      <p id="conviteTexto">Você foi selecionado para uma Sessão de Mapeamento Estratégico, onde construímos juntos um plano personalizado para acelerar sua evolução profissional com IA.</p>
+    </div>
+    <div class="tag-row">
+      <span class="tag">Sessão 100% sem custo</span>
+      <span class="tag">Vagas limitadas por turma</span>
+    </div>
+    <a class="btn btn-primary" href="https://calendar.app.google/vrgnRGdugPBkix8h7" id="ctaAgendar" target="_blank" rel="noopener">Agendar Minha Sessão Gratuita</a>
+    <button class="btn-ghost" onclick="reiniciar()">Refazer o diagnóstico</button>
+  </div>
+
+  <!-- CONVITE (NUTRIR) -->
+  <div class="screen" id="s-convite-soft">
+    <div class="invite-hero">
+      <div class="badge">
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#1EA9A1" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h2>Seu diagnóstico está pronto.</h2>
+      <p>Pelo que você respondeu, ainda não é o momento ideal para uma mentoria de 12 meses, e está tudo bem. Vamos te enviar conteúdo prático sobre carreira e IA para você seguir evoluindo no seu ritmo.</p>
+    </div>
+    <div class="soft-note">Quando quiser acelerar de verdade essa transição, a Vértice MAP vai estar aqui. Você pode voltar a esse diagnóstico quando fizer sentido.</div>
+    <button class="btn-ghost" onclick="reiniciar()" style="margin-top:20px;">Refazer o diagnóstico</button>
+  </div>
+
+  <footer class="legend">Vértice MAP</footer>
+</div>
+
+<script>
+var state = {nome:'', email:'', whats:'', cargoKey:null, rendaAtual:6000, rendaDesejada:15000, desafios:[], maturidadeIA:null, prazo:null, tempoFuncao:null, tentativaMudanca:null, disposicao:null, perfilAtual:null, perfilPotencial:null, gapTexto:null};
+
+var CARGOS = [
+  {key:'assistente', nome:'Assistente de Comunicação/Marketing', nivel:1},
+  {key:'analista-com', nome:'Analista de Comunicação', nivel:2},
+  {key:'analista-mkt', nome:'Analista de Marketing', nivel:2},
+  {key:'assessor', nome:'Assessor de Comunicação', nivel:2},
+  {key:'social-media', nome:'Social Media', nivel:2},
+  {key:'designer', nome:'Designer', nivel:2},
+  {key:'trafego', nome:'Gestor de Tráfego', nivel:2},
+  {key:'coordenador', nome:'Coordenador', nivel:3},
+  {key:'gerente', nome:'Gerente', nivel:3},
+  {key:'empresario', nome:'Pequeno Empresário', nivel:4},
+  {key:'outro', nome:'Outro', nivel:2}
+];
+
+var NIVEIS = ['', 'Operacional', 'Especialista Técnico', 'Consultor Estratégico', 'Fractional Head', 'Advisor', 'Conselheiro'];
+
+var DESAFIOS = [
+  {key:'salario', label:'Quero aumentar meu salário onde já trabalho', gap:'Posicionamento e Reconhecimento: sua entrega ainda não está sendo comunicada como valor estratégico, e é isso que trava o salário.',
+   acoes:['Documentar 1 resultado recente com números, antes e depois, pra usar na próxima conversa de salário.','Aprender a comunicar entregas em linguagem de impacto pro negócio, não só de tarefa cumprida.','Usar IA pra transformar entregas operacionais em relatórios que mostram valor estratégico.']},
+  {key:'promocao', label:'Quero uma promoção ou um cargo mais alto', gap:'Posicionamento: falta um degrau de autoridade percebida entre você e quem decide sua promoção.',
+   acoes:['Mapear quem decide sua promoção e quais resultados essa pessoa valoriza de verdade.','Assumir 1 entrega de maior visibilidade nos próximos 90 dias, fora da rotina operacional.','Construir 1 material curto, case, dashboard ou apresentação, que prove domínio de IA aplicada.']},
+  {key:'emprego_melhor', label:'Quero conseguir um emprego melhor em outra empresa', gap:'Portfólio e Prova: sem um case documentado de resultado com IA, fica mais difícil provar seu valor pra fora.',
+   acoes:['Montar um portfólio com 2 a 3 cases reais de resultado, mesmo que pequenos.','Atualizar o LinkedIn com foco em resultado e domínio de IA, não só em atividades.','Treinar como contar sua trajetória profissional em menos de 60 segundos, com foco em transformação.']},
+  {key:'renda_extra', label:'Quero ter uma renda extra, além do meu salário fixo', gap:'Oferta: ainda falta um formato, projeto paralelo ou consultoria pontual, para transformar o que você sabe em uma segunda fonte de renda.',
+   acoes:['Identificar 1 habilidade sua que já resolve um problema real de outras pessoas ou empresas.','Desenhar uma oferta simples em torno dessa habilidade, sem precisar virar empresário ainda.','Testar essa oferta com 1 ou 2 pessoas da sua rede antes de formalizar qualquer coisa.']},
+  {key:'operacional', label:'Sinto que meu trabalho é visto como operacional, não estratégico', gap:'Estratégico: sair da entrega do dia a dia para a camada de decisão.',
+   acoes:['Escolher 1 tarefa operacional recorrente pra automatizar com IA nas próximas 2 semanas.','Trocar uma parte do seu tempo de execução por tempo de análise e recomendação.','Levar 1 diagnóstico ou sugestão estratégica pra próxima reunião com seu gestor.']},
+  {key:'medo_ia', label:'Tenho medo de ser substituído por alguém que usa IA melhor do que eu', gap:'Técnico: a ameaça é real, mas o caminho para virar isso a seu favor ainda não está claro.',
+   acoes:['Escolher 1 ferramenta de IA e dominar ela de verdade, em vez de usar várias por cima.','Aplicar essa ferramenta em 1 entrega real essa semana, não só em teste.','Documentar o antes e depois dessa aplicação, isso já é prova de valor pra empresa.']},
+  {key:'nao_sei_ia', label:'Não sei como usar IA no meu trabalho no dia a dia', gap:'Técnico: aplicação real de IA no seu fluxo de trabalho, começando pelo básico.',
+   acoes:['Começar pelo básico, usar IA pra resolver 1 problema real do seu dia, não pra aprender a ferramenta em abstrato.','Guardar 15 minutos por dia só pra praticar, é isso que gera domínio, não curso longo.','Buscar 1 exemplo de alguém do seu setor que já usa IA, e copiar o caminho.']},
+  {key:'outro', label:'Outro', gap:'Posicionamento: o ponto de partida mais comum quando o desafio ainda não está claro.',
+   acoes:['Mapear com clareza qual é hoje o seu maior travamento de carreira.','Escolher 1 entrega recente e reescrever a forma como ela é comunicada, com foco em valor.','Testar IA em pelo menos 1 tarefa essa semana, mesmo pequena.']}
+];
+
+var IA_NIVEIS = [
+  {key:1, label:'Ainda não uso IA no meu trabalho'},
+  {key:2, label:'Uso IA só para pesquisar ou gerar textos simples'},
+  {key:3, label:'Uso IA para automatizar tarefas repetitivas, como planilhas, relatórios ou agendamentos'},
+  {key:4, label:'Já uso IA para criar entregáveis estratégicos, como análises, dashboards ou apresentações'},
+  {key:5, label:'Já treinei ou expliquei IA para outras pessoas no meu trabalho'}
+];
+var IA_LABEL = ['', 'Iniciante', 'Básico', 'Operacional', 'Estratégico', 'Multiplicador'];
+
+var CARGO_CONTEXTO = {
+  1: 'Numa função de entrada como a sua',
+  2: 'Numa função técnica como a sua',
+  3: 'Numa função de coordenação como a sua',
+  4: 'Como empresário ou empresária'
+};
+var TEMPO_CONTEXTO = {
+  'Menos de 1 ano': 'e ainda no início dessa posição',
+  'De 1 a 2 anos': 'e com o tempo que você já tem nessa posição',
+  'De 3 a 5 anos': 'e depois de alguns anos nessa mesma posição',
+  'Mais de 5 anos': 'e depois de mais de 5 anos nessa mesma posição'
+};
+
+function montarGapTexto(cargo, tempoFuncao, desafioPrincipal){
+  var abertura = CARGO_CONTEXTO[cargo.nivel] || 'No seu momento atual';
+  var meio = TEMPO_CONTEXTO[tempoFuncao] || '';
+  var conector = meio ? (', ' + meio + ', ') : ', ';
+  var textoGap = desafioPrincipal.gap;
+  var partesGap = textoGap.split(': ');
+  var categoriaMinuscula = partesGap[0].toLowerCase();
+  var restoGap = partesGap.slice(1).join(': ');
+  var gapMinusculo = categoriaMinuscula + (restoGap ? (': ' + restoGap) : '');
+  return abertura + conector + 'o principal travamento costuma ser ' + gapMinusculo;
+}
+
+var PRAZOS = ['Em até 30 dias', 'Em até 90 dias', 'Em 6 meses', 'Em 1 ano'];
+var TEMPOS_FUNCAO = ['Menos de 1 ano', 'De 1 a 2 anos', 'De 3 a 5 anos', 'Mais de 5 anos'];
+var TENTATIVAS = ['Sim, tentei e não consegui', 'Sim, consegui, mas não foi o suficiente', 'Não tentei ainda'];
+var DISPOSICOES = ['Sim', 'Talvez', 'Ainda não'];
+
+function goTo(id){
+  document.querySelectorAll('.screen').forEach(function(el){el.classList.remove('active');});
+  document.getElementById(id).classList.add('active');
+  var stepMap = {'s-step1':1,'s-step2':2,'s-step3':3,'s-step4':4,'s-step5':5,'s-step6':6};
+  var qualifMap = {'s-qualif1':1,'s-qualif-tentativa':2,'s-qualif2':3};
+  var bar = document.getElementById('progressBar');
+  var qbar = document.getElementById('qualifProgress');
+  if(stepMap[id]){
+    bar.style.display = 'flex';
+    qbar.style.display = 'none';
+    document.querySelectorAll('#progressBar .seg').forEach(function(seg){
+      seg.classList.toggle('done', parseInt(seg.dataset.i) <= stepMap[id]);
+    });
+  } else if(qualifMap[id]){
+    bar.style.display = 'none';
+    qbar.style.display = 'flex';
+    document.querySelectorAll('#qualifProgress .seg').forEach(function(seg){
+      seg.classList.toggle('done', parseInt(seg.dataset.qi) <= qualifMap[id]);
+    });
+  } else {
+    bar.style.display = 'none';
+    qbar.style.display = 'none';
+  }
+  window.scrollTo(0,0);
+}
+
+function iniciarDiagnostico(){
+  state.nome = document.getElementById('f-nome').value || 'Você';
+  state.email = document.getElementById('f-email').value;
+  state.whats = document.getElementById('f-whats').value;
+  renderCargoGrid();
+  renderIAGrid();
+  renderTempoFuncaoGrid();
+  goTo('s-step1');
+}
+
+function renderCargoGrid(){
+  var grid = document.getElementById('cargoGrid');
+  grid.innerHTML = '';
+  CARGOS.forEach(function(c){
+    var btn = document.createElement('button');
+    btn.className = 'opt-card';
+    btn.textContent = c.nome;
+    btn.onclick = function(){
+      state.cargoKey = c.key;
+      document.querySelectorAll('#cargoGrid .opt-card').forEach(function(x){x.classList.remove('selected');});
+      btn.classList.add('selected');
+      document.getElementById('btnStep1').disabled = false;
+    };
+    grid.appendChild(btn);
+  });
+}
+
+function renderIAGrid(){
+  var list = document.getElementById('iaList');
+  list.innerHTML = '';
+  IA_NIVEIS.forEach(function(n){
+    var btn = document.createElement('button');
+    btn.className = 'opt-card';
+    btn.textContent = n.label;
+    btn.onclick = function(){
+      state.maturidadeIA = n.key;
+      document.querySelectorAll('#iaList .opt-card').forEach(function(x){x.classList.remove('selected');});
+      btn.classList.add('selected');
+      document.getElementById('btnStep5').disabled = false;
+    };
+    list.appendChild(btn);
+  });
+}
+
+function updateRendaAtual(v){
+  state.rendaAtual = parseInt(v);
+  document.getElementById('rendaAtualValue').textContent = 'R$ ' + parseInt(v).toLocaleString('pt-BR');
+}
+function updateRendaDesejada(v){
+  state.rendaDesejada = parseInt(v);
+  document.getElementById('rendaDesejadaValue').textContent = 'R$ ' + parseInt(v).toLocaleString('pt-BR');
+}
+
+function renderDesafios(){
+  var list = document.getElementById('desafioList');
+  list.innerHTML = '';
+  DESAFIOS.forEach(function(d){
+    var row = document.createElement('div');
+    row.className = 'check-row';
+    row.innerHTML = '<div class="box"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4L19 6" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span>' + d.label + '</span>';
+    row.onclick = function(){
+      var idx = state.desafios.indexOf(d.key);
+      if(idx > -1){
+        state.desafios.splice(idx,1);
+        row.classList.remove('selected');
+      } else {
+        if(state.desafios.length >= 2){ return; }
+        state.desafios.push(d.key);
+        row.classList.add('selected');
+      }
+      document.getElementById('btnStep4').disabled = state.desafios.length === 0;
+    };
+    list.appendChild(row);
+  });
+}
+
+function renderTempoFuncaoGrid(){
+  var list = document.getElementById('tempoFuncaoList');
+  list.innerHTML = '';
+  TEMPOS_FUNCAO.forEach(function(t){
+    var btn = document.createElement('button');
+    btn.className = 'opt-card';
+    btn.textContent = t;
+    btn.onclick = function(){
+      state.tempoFuncao = t;
+      document.querySelectorAll('#tempoFuncaoList .opt-card').forEach(function(x){x.classList.remove('selected');});
+      btn.classList.add('selected');
+      document.getElementById('btnStepTempo').disabled = false;
+    };
+    list.appendChild(btn);
+  });
+}
+
+// popula as etapas de selecao unica assim que o app carrega, evitando tela vazia se o usuário voltar
+renderDesafios();
+renderIAGrid();
+renderTempoFuncaoGrid();
+
+function calcularDiagnostico(){
+  var cargo = CARGOS.filter(function(c){return c.key === state.cargoKey;})[0] || CARGOS[CARGOS.length-1];
+  var nivelAtual = cargo.nivel;
+
+  if(state.rendaAtual < 5000){ nivelAtual = Math.max(1, nivelAtual - 1); }
+  else if(state.rendaAtual >= 12000){ nivelAtual = Math.min(6, nivelAtual + 1); }
+
+  var nivelPotencial = Math.min(6, nivelAtual + 2);
+
+  var desafioPrincipal = DESAFIOS.filter(function(d){return d.key === state.desafios[0];})[0] || DESAFIOS[DESAFIOS.length-1];
+
+  document.getElementById('resultadoTitulo').textContent = state.nome + ', aqui está o seu retrato de carreira';
+  document.getElementById('resultadoSub').textContent = 'Com base nas suas respostas, veja onde você está e até onde pode chegar.';
+  document.getElementById('rPerfilAtual').textContent = NIVEIS[nivelAtual];
+  document.getElementById('rPerfilPotencial').textContent = NIVEIS[nivelPotencial];
+  document.getElementById('rNivelAtual').textContent = nivelAtual + ' de 6';
+  document.getElementById('rNivelDesejado').textContent = nivelPotencial + ' de 6';
+  document.getElementById('rMeta').textContent = 'R$ ' + state.rendaDesejada.toLocaleString('pt-BR');
+  var textoGapCalculado = montarGapTexto(cargo, state.tempoFuncao, desafioPrincipal);
+  document.getElementById('rGap').textContent = textoGapCalculado;
+  document.getElementById('rMaturidadeIA').textContent = IA_LABEL[state.maturidadeIA] + ' (nível ' + state.maturidadeIA + ' de 5)';
+
+  state.perfilAtual = NIVEIS[nivelAtual];
+  state.perfilPotencial = NIVEIS[nivelPotencial];
+  state.gapTexto = textoGapCalculado;
+
+  var track = document.getElementById('levelTrack');
+  track.innerHTML = '';
+  for(var i=1;i<=6;i++){
+    var seg = document.createElement('div');
+    seg.className = 'lv';
+    if(i <= nivelAtual){ seg.classList.add('filled'); }
+    else if(i <= nivelPotencial){ seg.classList.add('target'); }
+    track.appendChild(seg);
+  }
+
+  var iaTrack = document.getElementById('iaTrack');
+  iaTrack.innerHTML = '';
+  for(var j=1;j<=5;j++){
+    var segIA = document.createElement('div');
+    segIA.className = 'lv';
+    if(j <= state.maturidadeIA){ segIA.classList.add('filled'); }
+    iaTrack.appendChild(segIA);
+  }
+
+  var planoList = document.getElementById('rPlano');
+  planoList.innerHTML = '';
+  desafioPrincipal.acoes.forEach(function(a){
+    var li = document.createElement('li');
+    li.textContent = a;
+    planoList.appendChild(li);
+  });
+
+  renderRadioList('prazoList', PRAZOS, function(v){ state.prazo = v; goTo('s-qualif-tentativa'); });
+  renderRadioList('tentativaList', TENTATIVAS, function(v){ state.tentativaMudanca = v; goTo('s-qualif2'); });
+  renderRadioList('disposicaoList', DISPOSICOES, function(v){ state.disposicao = v; finalizarQualificacao(); });
+
+  goTo('s-resultado');
+}
+
+function renderRadioList(containerId, options, onPick){
+  var list = document.getElementById(containerId);
+  list.innerHTML = '';
+  options.forEach(function(opt){
+    var btn = document.createElement('button');
+    btn.className = 'opt-card';
+    btn.textContent = opt;
+    btn.onclick = function(){ onPick(opt); };
+    list.appendChild(btn);
+  });
+}
+
+function montarConviteTexto(){
+  var partes = [];
+
+  var prazoFrase = {
+    'Em até 30 dias':'quer resolver isso rápido, em até 30 dias',
+    'Em até 90 dias':'quer resolver isso em até 90 dias',
+    'Em 6 meses':'está se planejando pra mudar em 6 meses',
+    'Em 1 ano':'está pensando nessa mudança pro próximo ano'
+  }[state.prazo];
+  if(prazoFrase){ partes.push(prazoFrase); }
+
+  var tempoFrase = {
+    'De 1 a 2 anos':'já está há um tempo na mesma função',
+    'De 3 a 5 anos':'está há alguns anos na mesma função',
+    'Mais de 5 anos':'está há mais de 5 anos na mesma função'
+  }[state.tempoFuncao];
+  if(tempoFrase){ partes.push(tempoFrase); }
+
+  var tentativaFrase = {
+    'Sim, tentei e não consegui':'já tentou uma recolocação ou promoção recente e não conseguiu',
+    'Sim, consegui, mas não foi o suficiente':'conseguiu uma mudança recente, mas sentiu que não foi suficiente'
+  }[state.tentativaMudanca];
+  if(tentativaFrase){ partes.push(tentativaFrase); }
+
+  var temNome = state.nome && state.nome !== 'Você';
+  var resumo;
+  if(partes.length){
+    resumo = (temNome ? (state.nome + ', você ') : 'Você ') + partes.join(', e ') + '.';
+  } else {
+    resumo = temNome ? (state.nome + ', o seu momento pede uma decisão.') : 'O seu momento pede uma decisão.';
+  }
+
+  return resumo + ' Isso não é falta de competência, é falta de direção clara, e é exatamente isso que vamos resolver juntos na Sessão de Mapeamento Estratégico.';
+}
+
+// Cole aqui a URL do Google Apps Script Web App depois de publicar o script vinculado
+// a planilha "Vertice MAP - Leads do Diagnostico Interativo". Enquanto estiver vazia,
+// o envio e apenas simulado (log no console), nada e perdido, mas nada e gravado de verdade.
+var LEAD_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbx_uPfJdKjP16GoOjdzbOjf1WXdBC-RlrhRoG-ebpQ5excaLwST7g6zw3pkjaMAl_Cd/exec';
+
+function enviarLeadParaPlanilha(resultado, pontos){
+  var linha = {
+    timestamp: new Date().toISOString(),
+    nome: state.nome,
+    email: state.email,
+    whatsapp: state.whats,
+    cargo: state.cargoKey,
+    rendaAtual: state.rendaAtual,
+    rendaDesejada: state.rendaDesejada,
+    desafio1: state.desafios[0] || '',
+    desafio2: state.desafios[1] || '',
+    maturidadeIA: state.maturidadeIA,
+    tempoFuncao: state.tempoFuncao,
+    prazo: state.prazo,
+    tentativaMudanca: state.tentativaMudanca,
+    disposicao: state.disposicao,
+    pontuacao: pontos,
+    resultado: resultado,
+    perfilAtual: state.perfilAtual,
+    perfilPotencial: state.perfilPotencial,
+    gapPrincipal: state.gapTexto
+  };
+
+  if(!LEAD_WEBHOOK_URL){
+    console.log('[Vertice MAP] lead pronto para envio, falta configurar LEAD_WEBHOOK_URL:', linha);
+    return;
+  }
+
+  fetch(LEAD_WEBHOOK_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(linha)
+  }).catch(function(erro){
+    console.log('[Vertice MAP] falha ao enviar lead:', erro);
+  });
+}
+
+function finalizarQualificacao(){
+  var pontos = 0;
+
+  if(state.prazo === 'Em até 30 dias' || state.prazo === 'Em até 90 dias'){ pontos += 2; }
+  else if(state.prazo === 'Em 6 meses'){ pontos += 1; }
+
+  if(state.tempoFuncao === 'De 3 a 5 anos' || state.tempoFuncao === 'Mais de 5 anos'){ pontos += 2; }
+  else if(state.tempoFuncao === 'De 1 a 2 anos'){ pontos += 1; }
+
+  if(state.tentativaMudanca === 'Sim, tentei e não consegui'){ pontos += 2; }
+  else if(state.tentativaMudanca === 'Sim, consegui, mas não foi o suficiente'){ pontos += 1; }
+
+  if(state.rendaDesejada >= state.rendaAtual * 1.3){ pontos += 1; }
+
+  var disposto = (state.disposicao !== 'Ainda não');
+  var qualificado = disposto && pontos >= 3;
+
+  if(qualificado){
+    var temNome = state.nome && state.nome !== 'Você';
+    document.getElementById('conviteTitulo').textContent = temNome ? ('Parabéns, ' + state.nome + '. Seu diagnóstico indica alto potencial.') : 'Parabéns! Seu diagnóstico indica alto potencial.';
+    document.getElementById('conviteTexto').textContent = montarConviteTexto();
+    enviarLeadParaPlanilha('forte', pontos);
+    goTo('s-convite-forte');
+  } else {
+    enviarLeadParaPlanilha('nutrir', pontos);
+    goTo('s-convite-soft');
+  }
+}
+
+function reiniciar(){
+  state = {nome:'', email:'', whats:'', cargoKey:null, rendaAtual:6000, rendaDesejada:15000, desafios:[], maturidadeIA:null, prazo:null, tempoFuncao:null, tentativaMudanca:null, disposicao:null, perfilAtual:null, perfilPotencial:null, gapTexto:null};
+  document.getElementById('f-nome').value = '';
+  document.getElementById('f-email').value = '';
+  document.getElementById('f-whats').value = '';
+  document.getElementById('rendaAtualSlider').value = 6000;
+  document.getElementById('rendaDesejadaSlider').value = 15000;
+  updateRendaAtual(6000);
+  updateRendaDesejada(15000);
+  document.getElementById('btnStep1').disabled = true;
+  document.getElementById('btnStepTempo').disabled = true;
+  document.getElementById('btnStep4').disabled = true;
+  document.getElementById('btnStep5').disabled = true;
+  renderDesafios();
+  renderIAGrid();
+  renderTempoFuncaoGrid();
+  goTo('s-landing');
+}
+</script>
+</body>
+</html>
