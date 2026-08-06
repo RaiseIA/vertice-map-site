@@ -127,6 +127,19 @@
   .soft-note{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;font-size:14px;color:var(--ink-soft);margin-top:16px;}
 
   footer.legend{margin-top:auto;padding-top:24px;text-align:center;font-size:11.5px;color:#9DACBC;}
+
+  /* DESKTOP: alarga o card em telas grandes, em vez de manter os 520px fixos */
+  @media (min-width:960px){
+    .app{max-width:760px;padding-top:64px;}
+    .landing h1{font-size:38px;}
+    .landing p.sub{font-size:17px;}
+    h2.q{font-size:27px;}
+    p.hint{font-size:15px;}
+    .btn{font-size:16px;padding:17px;}
+    .opt-card{font-size:15px;padding:18px 14px;}
+    .field input[type=text],.field input[type=email],.field input[type=tel]{font-size:16px;padding:15px 16px;}
+    .result-box{padding:32px;}
+  }
 </style>
 </head>
 <body>
