@@ -195,8 +195,21 @@ footer b{color:var(--white);}
 </footer>
 
 <script>
+var LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbwfbFSgGiIJJJhjG5aBxEmKrFgEFMpUtjTXtB9i8rGUl_UBmirczstStxqha5C4f-g/exec";
+
 document.getElementById('signup-form').addEventListener('submit', function(e){
 e.preventDefault();
+
+// Grava o lead na planilha (fire-and-forget, não bloqueia o redirecionamento).
+try {
+var params = new URLSearchParams();
+params.append('nome', document.getElementById('nome').value);
+params.append('whatsapp', document.getElementById('whats').value);
+params.append('area', document.getElementById('area').value);
+params.append('origem', 'inscricao-site');
+fetch(LEAD_ENDPOINT, { method: 'POST', mode: 'no-cors', body: params });
+} catch (err) {}
+
 if (typeof fbq === 'function') {
 fbq('track', 'Lead');
 }
