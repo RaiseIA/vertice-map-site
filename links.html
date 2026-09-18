@@ -7,192 +7,169 @@
 <meta name="description" content="Growth, Revenue e IA aplicada a carreiras e negócios.">
 <link rel="icon" href="https://verticemap.com.br/logo-vertice-negativo-site.png">
 <style>
-  :root {
-    --navy: #1D304E;
-    --navy-deep: #142238;
-    --teal: #1EA9A1;
-    --teal-light: #2FC4BB;
-    --white: #FFFFFF;
-    --muted: rgba(255,255,255,0.68);
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: var(--white);
-    display: flex;
-    justify-content: center;
-    padding: 48px 20px 32px;
-  }
-
-  .page {
-    width: 100%;
-    max-width: 420px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .brandmark {
-    height: 30px;
-    width: auto;
-    margin-bottom: 22px;
-    image-rendering: -webkit-optimize-contrast;
-  }
-
-  .avatar {
-    width: 112px;
-    height: 112px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center 18%;
-    border: 2px solid var(--teal);
-    box-shadow: 0 0 0 6px rgba(30,169,161,0.12);
-    image-rendering: -webkit-optimize-contrast;
-  }
-
-  .name {
-    margin-top: 18px;
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: 0.2px;
-  }
-
-  .tagline {
-    margin-top: 6px;
-    font-size: 14px;
-    color: var(--muted);
-    text-align: center;
-    line-height: 1.5;
-    max-width: 320px;
-  }
-
-  .links {
-    width: 100%;
-    margin-top: 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-  }
-
-  a.link-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    width: 100%;
-    padding: 16px 20px;
-    border-radius: 14px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 15px;
-    text-align: center;
-    transition: transform 0.15s ease, opacity 0.15s ease;
-    border: 1px solid transparent;
-  }
-
-  a.link-btn:active { transform: scale(0.98); }
-
-  .link-primary {
-    background: var(--teal);
-    color: var(--white);
-    flex-direction: column;
-    padding: 18px 14px;
-    box-shadow: 0 8px 24px rgba(30,169,161,0.28);
-  }
-
-  .link-primary .title {
-    display: block;
-    font-size: 15.5px;
-    font-weight: 700;
-    letter-spacing: 0.1px;
-    white-space: nowrap;
-    color: var(--white);
-  }
-
-  .link-primary .sub {
-    display: block;
-    font-weight: 500;
-    font-size: 12.5px;
-    margin-top: 4px;
-    color: rgba(255,255,255,0.85);
-  }
-
-  @media (max-width: 360px) {
-    .link-primary .title { font-size: 14px; }
-  }
-
-  .link-secondary {
-    background: rgba(255,255,255,0.06);
-    color: var(--white);
-    border: 1px solid rgba(255,255,255,0.16);
-  }
-
-  .link-secondary:hover { background: rgba(255,255,255,0.1); }
-
-  .link-tertiary {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid rgba(255,255,255,0.14);
-    font-size: 13.5px;
-    padding: 12px 20px;
-  }
-
-  .divider {
-    width: 100%;
-    text-align: center;
-    color: rgba(255,255,255,0.35);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
-    margin: 22px 0 4px;
-  }
-
-  footer {
-    margin-top: 40px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.4);
-    text-align: center;
-  }
-
-  footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+:root {
+--navy: #1D304E;
+--navy-deep: #142238;
+--teal: #1EA9A1;
+--teal-light: #2FC4BB;
+--white: #FFFFFF;
+--muted: rgba(255,255,255,0.68);
+}
+* { box-sizing: border-box; }
+body {
+margin: 0;
+min-height: 100vh;
+background: linear-gradient(180deg, var(--navy) 0%, var(--navy-deep) 100%);
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+color: var(--white);
+display: flex;
+justify-content: center;
+padding: 48px 20px 32px;
+}
+.page {
+width: 100%;
+max-width: 420px;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+.brandmark {
+height: 30px;
+width: auto;
+margin-bottom: 22px;
+image-rendering: -webkit-optimize-contrast;
+}
+.avatar {
+width: 112px;
+height: 112px;
+border-radius: 50%;
+object-fit: cover;
+object-position: center 18%;
+border: 2px solid var(--teal);
+box-shadow: 0 0 0 6px rgba(30,169,161,0.12);
+image-rendering: -webkit-optimize-contrast;
+}
+.name {
+margin-top: 18px;
+font-size: 22px;
+font-weight: 700;
+letter-spacing: 0.2px;
+}
+.tagline {
+margin-top: 6px;
+font-size: 14px;
+color: var(--muted);
+text-align: center;
+line-height: 1.5;
+max-width: 320px;
+}
+.links {
+width: 100%;
+margin-top: 32px;
+display: flex;
+flex-direction: column;
+gap: 14px;
+}
+a.link-btn {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+width: 100%;
+padding: 16px 20px;
+border-radius: 14px;
+text-decoration: none;
+font-weight: 600;
+font-size: 15px;
+text-align: center;
+transition: transform 0.15s ease, opacity 0.15s ease;
+border: 1px solid transparent;
+}
+a.link-btn:active { transform: scale(0.98); }
+.link-primary {
+background: var(--teal);
+color: var(--white);
+flex-direction: column;
+padding: 18px 14px;
+box-shadow: 0 8px 24px rgba(30,169,161,0.28);
+}
+.link-primary .title {
+display: block;
+font-size: 15.5px;
+font-weight: 700;
+letter-spacing: 0.1px;
+white-space: nowrap;
+color: var(--white);
+}
+.link-primary .sub {
+display: block;
+font-weight: 500;
+font-size: 12.5px;
+margin-top: 4px;
+color: rgba(255,255,255,0.85);
+}
+@media (max-width: 360px) {
+.link-primary .title { font-size: 14px; }
+}
+.link-secondary {
+background: rgba(255,255,255,0.06);
+color: var(--white);
+border: 1px solid rgba(255,255,255,0.16);
+}
+.link-secondary:hover { background: rgba(255,255,255,0.1); }
+.link-tertiary {
+background: transparent;
+color: var(--muted);
+border: 1px solid rgba(255,255,255,0.14);
+font-size: 13.5px;
+padding: 12px 20px;
+}
+.divider {
+width: 100%;
+text-align: center;
+color: rgba(255,255,255,0.35);
+font-size: 11px;
+text-transform: uppercase;
+letter-spacing: 1.2px;
+margin: 22px 0 4px;
+}
+footer {
+margin-top: 40px;
+font-size: 12px;
+color: rgba(255,255,255,0.4);
+text-align: center;
+}
+footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
 </style>
 </head>
 <body>
-  <div class="page">
-    <img class="brandmark" src="https://verticemap.com.br/logo-vertice-negativo-site.png" alt="Vértice MAP">
-    <img class="avatar" src="https://verticemap.com.br/foto-fundador.png" alt="Thiago Fonseca">
-    <div class="name">Thiago Fonseca</div>
-    <div class="tagline">Growth, Revenue e IA aplicada a carreiras e negócios</div>
-
-    <div class="links">
-      <a class="link-btn link-primary" href="https://verticemap.com.br/sessao-estrategica/" target="_blank" rel="noopener">
-        <span class="title">Vértice MAP, Turma Fundadora</span>
-        <span class="sub">Agende sua Sessão Estratégica</span>
-      </a>
-
-      <a class="link-btn link-secondary" href="https://www.youtube.com/@thiagofonseca_ia" target="_blank" rel="noopener">
-        Meu canal no YouTube
-      </a>
-
-      <a class="link-btn link-secondary" href="https://www.linkedin.com/in/thiagofonseca-ia/" target="_blank" rel="noopener">
-        Perfil no LinkedIn
-      </a>
-
-      <div class="divider">Para empresas</div>
-
-      <a class="link-btn link-tertiary" href="https://gruporaise.com.br" target="_blank" rel="noopener">
-        RAISE, Advisory para empresas B2B
-      </a>
-    </div>
-
-    <footer>
-      Uma iniciativa do <a href="https://gruporaise.com.br" target="_blank" rel="noopener">Grupo RAISE</a>
-    </footer>
-  </div>
+<div class="page">
+<img class="brandmark" src="https://verticemap.com.br/logo-vertice-negativo-site.png" alt="Vértice MAP">
+<img class="avatar" src="https://verticemap.com.br/foto-fundador.png" alt="Thiago Fonseca">
+<div class="name">Thiago Fonseca</div>
+<div class="tagline">Growth, Revenue e IA aplicada a carreiras e negócios</div>
+<div class="links">
+<a class="link-btn link-primary" href="https://verticemap.com.br/sessao-estrategica/" target="_blank" rel="noopener">
+<span class="title">Vértice MAP, Turma Fundadora</span>
+<span class="sub">Agende sua Sessão Estratégica</span>
+</a>
+<a class="link-btn link-secondary" href="https://www.youtube.com/@thiagofonseca_ia" target="_blank" rel="noopener">
+Meu canal no YouTube
+</a>
+<a class="link-btn link-secondary" href="https://youtu.be/2tuUlL4_ilE" target="_blank" rel="noopener">
+Podcast | A Virada
+</a>
+<a class="link-btn link-secondary" href="https://www.linkedin.com/in/thiagofonseca-ia/" target="_blank" rel="noopener">
+Perfil no LinkedIn
+</a>
+<div class="divider">Para empresas</div>
+<a class="link-btn link-tertiary" href="https://gruporaise.com.br" target="_blank" rel="noopener">
+RAISE, Advisory para empresas B2B
+</a>
+</div>
+<footer>
+Uma iniciativa do <a href="https://gruporaise.com.br" target="_blank" rel="noopener">Grupo RAISE</a>
+</footer>
+</div>
 </body>
 </html>
