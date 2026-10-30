@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Muito Além do Post | Aula ao vivo e gratuita</title>
+<meta name="description" content="Aula ao vivo e gratuita para quem lidera time de comunicação e marketing: funis por time, IA no briefing, painel que antecipa atrasos e 1x1 com IA. Quarta, 04/11, 19h30.">
+<meta property="og:title" content="Muito Além do Post: a IA como gestora do time de comunicação">
+<meta property="og:description" content="Quarta, 04/11, 19h30. Aula ao vivo e gratuita com Thiago Fonseca.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://verticemap.com.br/muito-alem-do-post/">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@700;800;900&display=swap" rel="stylesheet">
+
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1260969994396173');fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1260969994396173&ev=PageView&noscript=1" alt=""></noscript>
+
+<style>
+  :root{
+    --bg:#10192B; --bg-2:#17223A; --bg-3:#1D2A45;
+    --teal:#1EA9A1; --teal-bright:#2FD9C9;
+    --white:#F7F9FB; --ink:#0B0F1A; --muted:#B7C0CE; --gray:#8A93A3;
+    --alert:#F08A8A; --line:rgba(255,255,255,.09);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:'Inter','Segoe UI',Arial,sans-serif;background:var(--bg);color:#D7DEE8;line-height:1.55;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:'Poppins','Inter',sans-serif;font-weight:800;letter-spacing:-.02em;line-height:1.1;margin:0 0 .5em;color:var(--white);text-wrap:balance}
+  p{margin:0 0 1em}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--teal-bright);outline-offset:3px;border-radius:6px}
+  .dot-grid{position:relative;overflow:hidden}
+  .dot-grid::before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:26px 26px;pointer-events:none}
+  .wrap{max-width:1120px;margin:0 auto;padding:56px max(24px,env(safe-area-inset-right,0px)) 56px max(24px,env(safe-area-inset-left,0px));position:relative;z-index:1}
+  .kicker{display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.14em;font-size:11.5px;font-weight:700;color:var(--teal-bright);border:1px solid rgba(47,217,201,.4);padding:7px 16px;border-radius:999px;margin-bottom:22px}
+  .kicker i{width:7px;height:7px;border-radius:50%;background:var(--teal-bright);display:inline-block}
+  @media (prefers-reduced-motion:no-preference){.kicker i{animation:pl 1.8s infinite}@keyframes pl{0%{box-shadow:0 0 0 0 rgba(47,217,201,.6)}100%{box-shadow:0 0 0 9px rgba(47,217,201,0)}}}
+
+  .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:56px;align-items:start}
+  .hero h1{font-size:clamp(30px,4vw,44px);max-width:600px}
+  .hero h1 s{text-decoration-color:var(--alert);text-decoration-thickness:4px;color:#8A93A3}
+  .hero h1 em{font-style:normal;color:var(--teal-bright)}
+  .hero .sub{font-size:17px;color:var(--muted);max-width:540px}
+  .info-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:26px;max-width:560px}
+  .info-card{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+  .info-card .lbl{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal-bright);font-weight:700;margin-bottom:2px}
+  .info-card .val{font-size:15px;font-weight:600;color:var(--white)}
+
+  .form-card{background:var(--white);color:var(--ink);border-radius:24px;padding:32px;box-shadow:0 40px 80px rgba(0,0,0,.35);position:sticky;top:24px}
+  .form-card h2{color:var(--ink);font-size:24px;margin-bottom:6px}
+  .form-card .sub{color:#4B5563;font-size:14.5px;margin-bottom:20px}
+  .bonus-tag{display:flex;gap:10px;align-items:flex-start;background:#E6F5F3;border:1px solid #BFE3E0;color:#0E5F5A;border-radius:12px;padding:10px 12px;font-size:13px;font-weight:600;margin-bottom:18px}
+  .bonus-tag b{font-weight:800}
+  label{display:block;font-size:13px;font-weight:600;color:#3A3F4A;margin:14px 0 6px}
+  label:first-of-type{margin-top:0}
+  input,select{width:100%;padding:13px 14px;border:1.5px solid #DADFE5;border-radius:10px;font-size:15px;font-family:inherit;background:#FAFBFC;color:var(--ink)}
+  input:focus,select:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(30,169,161,.15)}
+  .whatsapp-field{display:flex;gap:8px}
+  .whatsapp-field span{display:flex;align-items:center;padding:0 12px;background:#EEF1F4;border-radius:10px;font-weight:600;color:#4B5563;border:1.5px solid #DADFE5}
+  .submit-btn{width:100%;margin-top:20px;background:var(--teal);color:var(--white);border:none;padding:16px 20px;border-radius:12px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit}
+  .submit-btn:hover{background:#17938C}
+  .submit-btn:disabled{opacity:.7;cursor:wait}
+  .fine-print{font-size:12px;color:#6B7280;margin:12px 0 0;text-align:center}
+  .err{font-size:13px;color:#B03A3A;font-weight:600;margin-top:10px}
+  .done{display:none;text-align:center;padding:12px 0}
+  .done h2{font-size:24px}
+  .done .ok{width:56px;height:56px;border-radius:50%;background:#E6F5F3;color:var(--teal);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;font-size:28px;font-weight:800}
+  .done a.cal{display:inline-flex;margin-top:8px;padding:12px 16px;border-radius:10px;border:1.5px solid #DADFE5;color:var(--ink);font-weight:700;font-size:14px;text-decoration:none}
+  .done a.wa{display:inline-flex;margin-top:12px;padding:14px 18px;border-radius:12px;background:var(--teal);color:#fff;font-weight:700;text-decoration:none}
+
+  section.band{border-top:1px solid var(--line)}
+  .sec-title{font-size:clamp(24px,3vw,32px);max-width:720px}
+  .sec-sub{color:var(--muted);max-width:640px;font-size:16px}
+
+  .pains{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:28px}
+  .pain{background:var(--bg-2);border:1px solid var(--line);border-radius:16px;padding:18px 20px;font-size:15.5px;color:var(--white);font-weight:500;line-height:1.45}
+  .pain::before{content:"“";display:block;font-family:'Poppins';font-size:34px;line-height:.8;color:var(--alert);margin-bottom:6px}
+
+  .mock{margin-top:34px;background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:18px;overflow-x:auto}
+  .mock-top{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:12px;color:var(--gray);font-weight:600}
+  .mock-top i{width:10px;height:10px;border-radius:50%;background:#3A4763;display:inline-block}
+  .mock-top b{margin-left:8px;color:var(--white)}
+  .mock-board{display:grid;grid-template-columns:repeat(5,minmax(150px,1fr));gap:10px;min-width:780px}
+  .col{background:var(--bg-3);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px}
+  .col h4{margin:0 0 2px;font-size:12px;color:var(--muted);font-weight:700;display:flex;justify-content:space-between}
+  .col h4 span{color:var(--teal-bright)}
+  .tk{background:#24334F;border-radius:10px;padding:10px;font-size:12.5px;color:var(--white);line-height:1.35;border:1px solid transparent}
+  .tk small{display:block;color:var(--gray);margin-top:6px;font-size:11px;font-weight:600}
+  .tk.late{border-color:rgba(240,138,138,.5)}
+  .tk.late small{color:var(--alert)}
+  .tk.wait{border-color:rgba(47,217,201,.45)}
+  .tk.wait small{color:var(--teal-bright)}
+  .mock-cap{font-size:12.5px;color:var(--gray);margin:12px 4px 0}
+
+  .learn{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:28px}
+  .lcard{background:var(--bg-2);border:1px solid var(--line);border-radius:18px;padding:22px 24px}
+  .lcard .n{font-family:'Poppins';font-weight:800;font-size:13px;color:var(--teal-bright);letter-spacing:.08em}
+  .lcard h3{font-size:19px;margin:6px 0 8px}
+  .lcard p{color:var(--muted);font-size:15px;margin:0}
+
+  .funnels{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .funnels span{padding:9px 14px;border-radius:999px;background:rgba(47,217,201,.08);border:1px solid rgba(47,217,201,.25);color:var(--teal-bright);font-weight:700;font-size:13.5px}
+
+  .bonus{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;background:linear-gradient(135deg,rgba(30,169,161,.18),rgba(30,169,161,.04));border:1px solid rgba(47,217,201,.35);border-radius:22px;padding:28px}
+  .bonus .ic{width:64px;height:64px;border-radius:16px;background:var(--teal);display:flex;align-items:center;justify-content:center}
+  .bonus h3{font-size:22px;margin-bottom:6px}
+  .bonus p{color:var(--muted);margin:0}
+
+  .speaker{display:grid;grid-template-columns:auto 1fr;gap:36px;align-items:center}
+  .speaker img{width:240px;height:288px;border-radius:22px;object-fit:cover;object-position:center 15%;border:3px solid rgba(47,217,201,.45);box-shadow:0 30px 60px rgba(0,0,0,.35)}
+  .host{display:flex;align-items:center;gap:14px;margin-top:22px}
+  .host img{width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:center 12%;border:3px solid rgba(47,217,201,.55)}
+  .host b{display:block;color:var(--white);font-size:16px}
+  .host span{font-size:13.5px;color:var(--muted)}
+  .countdown{font-size:13px;color:#6B7280;margin-top:10px}
+  .speaker .name{font-family:'Poppins';font-weight:800;color:var(--white);font-size:22px}
+  .speaker .role{color:var(--muted);margin:2px 0 12px}
+  .chip-row{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-size:12px;font-weight:700;color:var(--teal-bright);background:rgba(47,217,201,.08);border:1px solid rgba(47,217,201,.25);padding:5px 11px;border-radius:999px}
+
+  .final{text-align:center}
+  .final h2{font-size:clamp(26px,3.4vw,38px);max-width:760px;margin-left:auto;margin-right:auto}
+  .final .when{color:var(--teal-bright);font-weight:700;font-size:17px;margin-bottom:22px}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:var(--teal);color:#fff;padding:17px 28px;border-radius:14px;font-weight:700;font-size:17px;text-decoration:none}
+  .cta:hover{background:#17938C}
+  footer{text-align:center;padding:32px 24px calc(32px + env(safe-area-inset-bottom,0px));color:#5C6577;font-size:13px;border-top:1px solid var(--line)}
+  footer b{color:var(--white)}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:32px}
+    .form-card{position:static}
+    .pains{grid-template-columns:1fr}
+    .learn{grid-template-columns:1fr}
+    .wrap{padding-top:40px;padding-bottom:40px}
+  }
+  @media (max-width:520px){
+    .info-row{grid-template-columns:1fr}
+    .form-card{padding:24px}
+    .bonus,.speaker{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<section class="dot-grid hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="kicker"><i></i>Aula ao vivo e gratuita · Quarta, 04/11, 19h30</span>
+        <h1>Seu time não precisa de mais um <s>prompt</s>. Precisa de um <em>sistema</em> que mostra o que vai travar antes de virar incêndio.</h1>
+        <p class="sub">Em 60 minutos, ao vivo, você vê a IA trabalhando na gestão do time de comunicação e marketing: da entrada das demandas ao 1x1 com cada pessoa.</p>
+        <div class="info-row">
+          <div class="info-card"><div class="lbl">Quando</div><div class="val">Quarta, 04/11</div></div>
+          <div class="info-card"><div class="lbl">Horário</div><div class="val">19h30 às 20h30</div></div>
+          <div class="info-card"><div class="lbl">Formato</div><div class="val">Online, ao vivo e gratuito</div></div>
+          <div class="info-card"><div class="lbl">Para quem</div><div class="val">Quem lidera time de comunicação e marketing</div></div>
+        </div>
+        <div class="host"><img src="../foto-fundador.png" alt="Thiago Fonseca" width="64" height="64"><div><b>Com Thiago Fonseca</b><span>Executivo de Growth &amp; Revenue · IA aplicada à gestão</span></div></div>
+      </div>
+
+      <div class="form-card" id="inscricao">
+        <div id="form-wrap">
+          <h2>Garanta sua vaga</h2>
+          <p class="sub">Ao enviar, você entra no grupo da aula no WhatsApp, onde chega o link de acesso.</p>
+          <div class="bonus-tag"><span aria-hidden="true">🎁</span><span><b>Bônus para quem assistir ao vivo:</b> o modelo dos 8 funis e o Playbook com questionários de briefing e prompts.</span></div>
+          <form id="signup-form" novalidate>
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" required autocomplete="name" placeholder="Seu nome">
+
+            <label for="whats">WhatsApp</label>
+            <div class="whatsapp-field"><span>+55</span><input type="tel" id="whats" name="whatsapp" required autocomplete="tel-national" inputmode="tel" placeholder="(00) 00000-0000"></div>
+
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required autocomplete="email" placeholder="voce@empresa.com.br">
+
+            <label for="time">Quantas pessoas você lidera?</label>
+            <select id="time" name="time" required>
+              <option value="" disabled selected>Selecione</option>
+              <option>Só eu, por enquanto</option>
+              <option>2 a 5 pessoas</option>
+              <option>6 a 15 pessoas</option>
+              <option>Mais de 15 pessoas</option>
+            </select>
+
+            <button type="submit" class="submit-btn" id="submit-btn">Quero minha vaga →</button>
+            <p class="err" id="form-err" role="alert" hidden></p>
+          </form>
+          <p class="fine-print">🔒 Seus dados são usados só para te avisar sobre a aula. Sem spam.</p>
+        </div>
+        <div class="done" id="done" aria-live="polite">
+          <div class="ok" aria-hidden="true">✓</div>
+          <h2>Inscrição concluída!</h2>
+          <p class="sub" id="done-msg">Sua vaga para quarta, 04/11, às 19h30, está garantida. O link de acesso chega pelo grupo da aula no WhatsApp.</p>
+          <a class="wa" id="done-wa" href="#" hidden>Entrar no grupo do WhatsApp</a>
+          <p class="countdown" id="done-count" hidden></p>
+          <a class="cal" id="done-cal" target="_blank" rel="noopener" href="#">Adicionar à minha agenda</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2 class="sec-title">Você se reconhece em alguma dessas frases?</h2>
+    <p class="sec-sub">Se marcou duas ou mais, essa aula foi feita para você.</p>
+    <div class="pains">
+      <div class="pain">Demanda chega pelo WhatsApp, pelo e-mail, no corredor. E tudo é pra ontem.</div>
+      <div class="pain">Metade do retrabalho do time vem de briefing pela metade.</div>
+      <div class="pain">A arte está pronta, parada esperando aprovação. E a culpa do atraso cai no time.</div>
+      <div class="pain">Só percebi que alguém estava sobrecarregado quando a pessoa pediu pra sair.</div>
+      <div class="pain">Toda semana tem reunião de status que não resolve nada.</div>
+      <div class="pain">A diretoria acha que comunicação é fábrica de post.</div>
+    </div>
+
+    <div class="mock" aria-label="Exemplo do funil de Design que será mostrado na aula">
+      <div class="mock-top"><i></i><i></i><i></i><b>Funil de Design · exemplo da aula</b></div>
+      <div class="mock-board">
+        <div class="col"><h4>Briefing <span>2</span></h4><div class="tk">Material gráfico do Simpósio<small>Bia · Eventos</small></div><div class="tk">Placas da nova ala<small>até 04/11</small></div></div>
+        <div class="col"><h4>Aprovação de OS <span>1</span></h4><div class="tk wait">Campanha de vacinação<small>esperando coordenação</small></div></div>
+        <div class="col"><h4>Elaboração <span>2</span></h4><div class="tk late">Ilustração da matéria ONA<small>3 dias de atraso</small></div><div class="tk">Arte vacinação RH<small>até 28/10</small></div></div>
+        <div class="col"><h4>Aprovação do solicitante <span>1</span></h4><div class="tk late wait">Identidade visual do Simpósio<small>parada há 13 dias</small></div></div>
+        <div class="col"><h4>Entrega <span>1</span></h4><div class="tk">Banner SIPAT<small>finalização</small></div></div>
+      </div>
+      <p class="mock-cap">Na aula, esse mesmo funil está ligado ao ClickUp: a IA cria a demanda, o painel mostra onde trava e quem está no limite.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band dot-grid">
+  <div class="wrap">
+    <h2 class="sec-title">O que você vai ver funcionando, na tela</h2>
+    <p class="sec-sub">Nada de slide com teoria. É o sistema aberto, com um time de comunicação de exemplo.</p>
+    <div class="learn">
+      <div class="lcard"><div class="n">01</div><h3>Um funil para cada time</h3><p>A lógica de gestão de projetos aplicada à comunicação, com etapas próprias e quem pega cada etapa. Do pedido à entrega, sem perguntar "e aí, como está?".</p></div>
+      <div class="lcard"><div class="n">02</div><h3>IA no briefing</h3><p>Um pedido solto de WhatsApp vira briefing completo no ClickUp, com responsável, prazo e a lista do que ainda falta perguntar.</p></div>
+      <div class="lcard"><div class="n">03</div><h3>Painel que antecipa o atraso</h3><p>Quem está sobrecarregado, o que vai atrasar e onde o fluxo trava. Com Gantt e evolução das entregas, para negociar prazo com dado na mão.</p></div>
+      <div class="lcard"><div class="n">04</div><h3>1x1 e feedback com IA</h3><p>Pauta preparada pela IA, transcrição que vira resumo e compromissos, e o histórico de cada pessoa guardado num lugar só.</p></div>
+    </div>
+    <h3 style="font-size:18px;margin-top:40px">Os 8 funis que você vai levar como modelo</h3>
+    <div class="funnels">
+      <span>Comunicação Interna</span><span>Jornal Institucional</span><span>Design</span><span>Social Media</span><span>Produção de Vídeo</span><span>Campanhas</span><span>Tráfego</span><span>Eventos</span>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="bonus">
+      <div class="ic" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M12 8v13M3 12h18M12 8c-1.5-3-5-3-5-1s3 1 5 1zm0 0c1.5-3 5-3 5-1s-3 1-5 1z"/></svg></div>
+      <div>
+        <h3>Bônus para quem estiver ao vivo</h3>
+        <p>O modelo dos 8 funis com as etapas de cada time e o Playbook com os questionários de briefing e os prompts usados na aula. Entregue no fim da transmissão.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <div class="speaker">
+      <img src="../foto-fundador.png" alt="Thiago Fonseca" width="240" height="288" loading="lazy">
+      <div>
+        <div class="name">Thiago Fonseca</div>
+        <div class="role">Executivo de Growth &amp; Revenue · Fundador do Grupo RAISE e da Vértice MAP</div>
+        <p style="color:var(--muted);max-width:640px">Há mais de 18 anos estruturando operações de crescimento, marketing e vendas em empresas B2B, com automação e IA aplicada à gestão.</p>
+        <div class="chip-row">
+          <span class="chip">8,3x faturamento em 6 meses</span>
+          <span class="chip">400% de crescimento de base em 18 meses</span>
+          <span class="chip">+40% em SQLs</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band dot-grid final">
+  <div class="wrap">
+    <h2>Uma hora para sair da fábrica de posts e virar a área que a diretoria consulta.</h2>
+    <p class="when">Quarta, 04/11 · 19h30 às 20h30 · ao vivo e gratuita</p>
+    <a class="cta" href="#inscricao">Quero minha vaga →</a>
+  </div>
+</section>
+
+<footer>
+  <b>Muito Além do Post.</b> Uma aula gratuita da Vértice MAP, iniciativa do Grupo RAISE. · verticemap.com.br
+</footer>
+
+<script>
+(function(){
+  // Endpoint que grava na planilha de inscrições (mesmo Web App da página /inscricao/).
+  var LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwfbFSgGiIJJJhjG5aBxEmKrFgEFMpUtjTXtB9i8rGUl_UBmirczstStxqha5C4f-g/exec';
+  // Link do grupo de WhatsApp desta aula. Deixe vazio para mostrar só a confirmação.
+  var WHATSAPP_URL = 'https://chat.whatsapp.com/JuYiLL18aiwCagO5YtSVtI';
+  // Banco dedicado da aula (Apps Script da planilha "Leads · Muito Além do Post"). Vazio = só o endpoint acima.
+  var LEAD_ENDPOINT_AULA = '';
+  var CAL_URL = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+    + '&text=' + encodeURIComponent('Muito Além do Post · aula ao vivo')
+    + '&dates=20261104T223000Z/20261104T233000Z'
+    + '&details=' + encodeURIComponent('Aula ao vivo e gratuita com Thiago Fonseca. O link de acesso chega pelo grupo do WhatsApp. verticemap.com.br/muito-alem-do-post');
+
+  var q = new URLSearchParams(location.search);
+  var canal = (q.get('origem') || q.get('utm_source') || '').toLowerCase().replace(/[^a-z0-9_-]/g,'').slice(0,30);
+  var ORIGEM = 'muito-alem-do-post' + (canal ? '-' + canal : '');
+
+  var form = document.getElementById('signup-form');
+  var btn = document.getElementById('submit-btn');
+  var err = document.getElementById('form-err');
+  var whats = document.getElementById('whats');
+
+  whats.addEventListener('input', function(){
+    var d = whats.value.replace(/\D/g,'').slice(0,11);
+    var out = d;
+    if (d.length > 2) out = '(' + d.slice(0,2) + ') ' + d.slice(2);
+    if (d.length > 7) out = '(' + d.slice(0,2) + ') ' + d.slice(2,7) + '-' + d.slice(7);
+    whats.value = out;
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    err.hidden = true;
+    var nome = document.getElementById('nome').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var tel = whats.value.replace(/\D/g,'');
+    var time = document.getElementById('time').value;
+    var msg = '';
+    if (nome.length < 3) msg = 'Preencha seu nome completo.';
+    else if (tel.length < 10) msg = 'Confira o número do WhatsApp com DDD.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) msg = 'Confira o e-mail.';
+    else if (!time) msg = 'Diga quantas pessoas você lidera.';
+    if (msg){ err.textContent = msg; err.hidden = false; return; }
+
+    btn.disabled = true; btn.textContent = 'Enviando...';
+    var params = new URLSearchParams();
+    params.append('nome', nome);
+    params.append('whatsapp', '+55' + tel);
+    params.append('email', email);
+    params.append('area', 'Lidera: ' + time);
+    params.append('origem', ORIGEM);
+    try { fetch(LEAD_ENDPOINT, { method:'POST', mode:'no-cors', body: params }); } catch(_) {}
+    if (LEAD_ENDPOINT_AULA){ var p2 = new URLSearchParams(params); p2.append('lidera', time); p2.append('pagina', location.href.split('#')[0]); try { fetch(LEAD_ENDPOINT_AULA, { method:'POST', mode:'no-cors', body: p2 }); } catch(_) {} }
+    try { if (window.fbq) fbq('track','Lead',{content_name:'Muito Além do Post'}); } catch(_) {}
+
+    document.getElementById('form-wrap').style.display = 'none';
+    var done = document.getElementById('done');
+    done.style.display = 'block';
+    document.getElementById('done-cal').href = CAL_URL;
+    if (WHATSAPP_URL){
+      var wa = document.getElementById('done-wa');
+      wa.href = WHATSAPP_URL; wa.hidden = false;
+      var cnt = document.getElementById('done-count'); var n = 6; cnt.hidden = false;
+      var tick = function(){ cnt.textContent = 'Abrindo o grupo do WhatsApp em ' + n + ' segundos...'; if (n-- <= 0){ location.href = WHATSAPP_URL; } else { setTimeout(tick, 1000); } };
+      tick();
+    }
+  });
+})();
+</script>
+</body>
+</html>
